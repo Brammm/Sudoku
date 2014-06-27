@@ -1,0 +1,11 @@
+{
+    "require": {
+        "php": ">=5.4.1",
+        "symfony/config": "~2.5",
+        "symfony/dependency-injection": "~2.5",
+        "symfony/yaml": "~2.5"
+    },
+    "autoload": {
+        "psr-4": {"": "src/"}
+    }
+}
