@@ -6,4 +6,4 @@ use Sudoku\Sudoku;
 
 $sudoku = new Sudoku();
 
-var_dump($_POST['cell']);
+print_r($_POST['grid']);

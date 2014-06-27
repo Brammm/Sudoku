@@ -26,6 +26,19 @@ $(function () {
 });
 
 var Sudoku = function() {
+
+    function getGrid() {
+        var grid = [];
+        for (var y = 1; y <= 9; y++) {
+            var row = [];
+            for (var x = 1; x <= 9; x++) {
+                row.push($("input[name='cell[" + x + "][" + y + "]']").val());
+            }
+            grid.push(row);
+        }
+        return grid;
+    }
+
     return {
         fill : function(grid, lock) {
             lock = lock || true;
@@ -48,7 +61,7 @@ var Sudoku = function() {
         step : function() {
             $.post(
                 'step.php',
-                $('#sudoku').serialize(),
+                {grid : getGrid()},
                 function(data) {
                     this.fill(data, false);
                 }
