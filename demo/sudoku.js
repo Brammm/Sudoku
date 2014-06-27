@@ -2,7 +2,7 @@ $(function () {
 
     var sud = new Sudoku();
 
-    sud.start(
+    sud.fill(
         [
             [0, 0, 1, 0, 4, 0, 0, 5, 6],
             [5, 0, 0, 2, 1, 3, 7, 0, 0],
@@ -16,21 +16,43 @@ $(function () {
         ]
     );
 
+    $('#step').click(function() {
+        sud.step();
+    });
+    $('#solve').click(function() {
+        sud.solve();
+    });
+
 });
 
 var Sudoku = function() {
     return {
-        start : function(grid) {
+        fill : function(grid, lock) {
+            lock = lock || true;
             for (var y = 0; y < grid.length; y++) {
                 for (var x = 0; x < grid[y].length; x++) {
                     var value  = grid[y][x],
                         xCoord = x + 1,
                         yCoord = y + 1;
+
                     if (value > 0) {
-                        $("input[name='cell[" + xCoord + "][" + yCoord + "]']").val(value).prop('disabled', true);
+                        var input = $("input[name='cell[" + xCoord + "][" + yCoord + "]']");
+                        input.val(value);
+                        if (lock) {
+                            input.prop('disabled', true);
+                        }
                     }
                 }
             }
+        },
+        step : function() {
+            $.post(
+                'step.php',
+                $('#sudoku').serialize(),
+                function(data) {
+                    this.fill(data, false);
+                }
+            );
         }
     };
 };
