@@ -21,4 +21,10 @@ input[type="number"] {
     text-align: center;
     font-size: 1.3em;
     margin-left: 15px;
+    color: #777;
+}
+
+input[type="number"]:disabled {
+    color: #666;
+    font-weight: bold;
 }
