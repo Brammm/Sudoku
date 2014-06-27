@@ -54,6 +54,20 @@ class Grid
         return null;
     }
 
+    /**
+     * Return array representation of the grid
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $grid = [];
+        foreach ($this->cells as $cell) {
+            $grid[$cell->getX()][$cell->getY()] = $cell->getValue();
+        }
+
+        return $grid;
+    }
 
     /**
      * Add cells to the grid.
