@@ -23,6 +23,16 @@ class Sudoku
         $this->grid = Grid::fromArray($grid);
     }
 
+    /**
+     * Helper function
+     *
+     * @return Grid
+     */
+    public function step()
+    {
+        return $this->container->get('sudoku.solver')->step($this->grid);
+    }
+
     private function initContainer()
     {
         $this->container = new ContainerBuilder();

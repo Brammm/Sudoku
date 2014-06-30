@@ -1,1 +1,8 @@
 services:
+    sudoku.solver:
+        class: Sudoku\Solver
+        calls:
+            - [addStrategy, ["@sudoku.strategy.row_strategy"]]
+
+    sudoku.strategy.row_strategy:
+        class: Sudoku\Strategy\RowStrategy
