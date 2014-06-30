@@ -6,7 +6,7 @@ use Sudoku\Grid\Cell;
 use Sudoku\Grid\Collection;
 use Sudoku\Grid\Grid;
 
-class RowStrategy implements StrategyInterface
+class SingleCell implements StrategyInterface
 {
 
     /**
@@ -14,29 +14,8 @@ class RowStrategy implements StrategyInterface
      */
     public function execute(Grid $grid)
     {
-        foreach ($grid->getRows() as $row) {
-            // Skip the row if it's complete
-            if ($row->isComplete()) {
-                continue;
-            }
-
-            if ($this->checkRow($row)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param Collection $row
-     *
-     * @return bool
-     */
-    private function checkRow(Collection $row)
-    {
-        foreach ($row->getCells() as $cell) {
-            if ('' !== $cell->getValue()) {
+        foreach ($grid->getCells() as $cell) {
+            if (! $cell->isEmpty()) {
                 continue;
             }
 

@@ -2,7 +2,7 @@ services:
     sudoku.solver:
         class: Sudoku\Solver
         calls:
-            - [addStrategy, ["@sudoku.strategy.row_strategy"]]
+            - [addStrategy, ["@sudoku.strategy.single_cell"]]
 
-    sudoku.strategy.row_strategy:
-        class: Sudoku\Strategy\RowStrategy
+    sudoku.strategy.single_cell:
+        class: Sudoku\Strategy\SingleCell

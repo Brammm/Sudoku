@@ -49,6 +49,16 @@ class Cell
     }
 
     /**
+     * Is the value empty or not?
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return '' === $this->getValue();
+    }
+
+    /**
      * @return int
      */
     public function getX()
