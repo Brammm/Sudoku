@@ -55,6 +55,98 @@ class Grid
     }
 
     /**
+     * Get all the cells in the grid
+     *
+     * @return Cell[]
+     */
+    public function getCells()
+    {
+        return $this->cells;
+    }
+
+    /**
+     * Returns a Collection array with all the rows
+     *
+     * @return Collection[]
+     */
+    public function getRows()
+    {
+        $rows = [];
+
+        foreach ($this->cells as $cell) {
+            $collection = isset($rows[$cell->getY()])
+                ? $rows[$cell->getY()]
+                : new Collection();
+
+            $collection->addCell($cell);
+
+            $rows[$cell->getY()] = $collection;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Get a row by it's y coordinate (0-8)
+     *
+     * @param $y
+     * @return Collection
+     */
+    public function getRow($y)
+    {
+        $collection = new Collection();
+
+        foreach ($this->cells as $cell) {
+            if ($cell->getY() === $y) {
+                $collection->addCell($cell);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Returns a Collection array with all the columns
+     *
+     * @return Collection[]
+     */
+    public function getColumns()
+    {
+        $rows = [];
+
+        foreach ($this->cells as $cell) {
+            $collection = isset($rows[$cell->getX()])
+                ? $rows[$cell->getX()]
+                : new Collection();
+
+            $collection->addCell($cell);
+
+            $rows[$cell->getX()] = $collection;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Get a column by it's x coordinate (0-8)
+     *
+     * @param $x
+     * @return Collection
+     */
+    public function getColumn($x)
+    {
+        $collection = new Collection();
+
+        foreach ($this->cells as $cell) {
+            if ($cell->getX() === $x) {
+                $collection->addCell($cell);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
      * Return array representation of the grid
      *
      * @return array
@@ -63,7 +155,7 @@ class Grid
     {
         $grid = [];
         foreach ($this->cells as $cell) {
-            $grid[$cell->getX()][$cell->getY()] = $cell->getValue();
+            $grid[$cell->getY()][$cell->getX()] = $cell->getValue();
         }
 
         return $grid;
@@ -83,7 +175,7 @@ class Grid
         $this->validateCoord($y);
         $this->validateValue($value);
 
-        $cell = new Cell($x, $y, $value);
+        $cell = new Cell($x, $y, $value, $this);
         $this->cells[] = $cell;
     }
 

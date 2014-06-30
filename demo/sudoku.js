@@ -39,31 +39,36 @@ var Sudoku = function() {
         return grid;
     }
 
-    return {
-        fill : function(grid, lock) {
-            lock = lock || true;
-            for (var y = 0; y < grid.length; y++) {
-                for (var x = 0; x < grid[y].length; x++) {
-                    var value  = grid[y][x],
-                        xCoord = x + 1,
-                        yCoord = y + 1;
+    function fill(grid, lock) {
 
-                    if (value > 0) {
-                        var input = $("input[name='cell[" + xCoord + "][" + yCoord + "]']");
-                        input.val(value);
-                        if (lock) {
-                            input.prop('disabled', true);
-                        }
+        if (typeof lock === 'undefined') {
+            lock = true;
+        }
+        for (var y = 0; y < grid.length; y++) {
+            for (var x = 0; x < grid[y].length; x++) {
+                var value  = grid[y][x],
+                    xCoord = x + 1,
+                    yCoord = y + 1;
+
+                if (value > 0) {
+                    var input = $("input[name='cell[" + xCoord + "][" + yCoord + "]']");
+                    input.val(value);
+                    if (lock) {
+                        input.prop('disabled', true);
                     }
                 }
             }
-        },
+        }
+    }
+
+    return {
+        fill : fill,
         step : function() {
             $.post(
                 'step.php',
                 {grid : getGrid()},
                 function(data) {
-                    this.fill(data, false);
+                    fill(data, false);
                 }
             );
         }

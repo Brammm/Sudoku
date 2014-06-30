@@ -62,4 +62,47 @@ class Collection
 
         return false;
     }
+
+    /**
+     * Checks if the collection is complete
+     *
+     * @return bool
+     */
+    public function isComplete()
+    {
+        foreach ($this->cells as $cell) {
+            if ('' === $cell->getValue()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the values in the collection
+     *
+     * @return array
+     */
+    public function getValues()
+    {
+        $values = [];
+        foreach ($this->cells as $cell) {
+            if ('' !== $cell->getValue()) {
+                $values[] = $cell->getValue();
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * Returns the missing values in the collection
+     *
+     * @return array
+     */
+    public function getMissingValues()
+    {
+        return array_diff(range(1,9), $this->getValues());
+    }
 } 
